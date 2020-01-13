@@ -60,7 +60,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import de.felixschiller.tlsmetric.Activities.MainActivity;
+import org.secuso.privacyfriendlynetmonitor.Activities.MainActivity;
 import de.felixschiller.tlsmetric.Assistant.Const;
 import de.felixschiller.tlsmetric.Assistant.KnownPorts;
 import de.felixschiller.tlsmetric.Assistant.RunStore;
@@ -82,9 +82,9 @@ public class PassiveService extends Service {
     private Bitmap mIcon;
     NotificationCompat.Builder mBuilder =
             new NotificationCompat.Builder(this)
- /*                   .setSmallIcon(R.drawable.ic_notification)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setContentTitle(getVersionString(R.string.app_name))
-                    .setContentText(getVersionString(R.string.bg_desc));*/
+                    .setContentText(getVersionString(R.string.bg_desc));
 
     private String getVersionString(int id){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
