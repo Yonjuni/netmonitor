@@ -140,7 +140,6 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             public void onClick(View view) {
                 ProgressBar progressBar = findViewById(R.id.mainProgressBar);
                 progressBar.setVisibility(View.VISIBLE);
-
                 startStopTrigger();
             }
         });
