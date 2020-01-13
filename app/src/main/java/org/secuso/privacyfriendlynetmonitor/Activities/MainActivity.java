@@ -74,6 +74,7 @@ import org.secuso.privacyfriendlynetmonitor.DatabaseUtil.DBApp;
 import org.secuso.privacyfriendlynetmonitor.DatabaseUtil.DaoSession;
 import org.secuso.privacyfriendlynetmonitor.DatabaseUtil.ReportEntityDao;
 import org.secuso.privacyfriendlynetmonitor.R;
+import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.VpnCaptureService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -147,20 +148,40 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
     //Trigger switches between activity, based service running indicator
     private void startStopTrigger() {
-        if (!RunStore.getServiceHandler().isServiceRunning(PassiveService.class)) {
-            if (Const.IS_DEBUG)
-                Log.d(Const.LOG_TAG, getResources().getString(R.string.passive_service_start));
-            RunStore.getServiceHandler().startPassiveService();
-            Intent intent = new Intent(RunStore.getContext(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+        //active service (VPNCaptureService)
+        if (Const.IS_ActiveCapture) {
+            if (!RunStore.getServiceHandler().isServiceRunning(VpnCaptureService.class)) {
+                if (Const.IS_DEBUG)
+                    Log.d(Const.LOG_TAG, getResources().getString(R.string.active_service_start));
+                RunStore.getServiceHandler().startActiveService();
+                Intent intent = new Intent(RunStore.getContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            } else {
+                if (Const.IS_DEBUG)
+                    Log.d(Const.LOG_TAG, getResources().getString(R.string.active_service_stop));
+                RunStore.getServiceHandler().stopActiveService();
+                Intent intent = new Intent(RunStore.getContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+            //passive service (PassiveService)
         } else {
-            if (Const.IS_DEBUG)
-                Log.d(Const.LOG_TAG, getResources().getString(R.string.passive_service_stop));
-            RunStore.getServiceHandler().stopPassiveService();
-            Intent intent = new Intent(RunStore.getContext(), MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            if (!RunStore.getServiceHandler().isServiceRunning(PassiveService.class)) {
+                if (Const.IS_DEBUG)
+                    Log.d(Const.LOG_TAG, getResources().getString(R.string.passive_service_start));
+                RunStore.getServiceHandler().startPassiveService();
+                Intent intent = new Intent(RunStore.getContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            } else {
+                if (Const.IS_DEBUG)
+                    Log.d(Const.LOG_TAG, getResources().getString(R.string.passive_service_stop));
+                RunStore.getServiceHandler().stopPassiveService();
+                Intent intent = new Intent(RunStore.getContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
         }
     }
 

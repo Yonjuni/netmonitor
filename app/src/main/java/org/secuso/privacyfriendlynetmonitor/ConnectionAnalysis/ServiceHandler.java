@@ -54,6 +54,7 @@ import android.widget.Toast;
 
 import org.secuso.privacyfriendlynetmonitor.Assistant.RunStore;
 import org.secuso.privacyfriendlynetmonitor.R;
+import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.VpnCaptureService;
 
 /**
  * This class handles commands and access to the services of the app
@@ -62,7 +63,7 @@ import org.secuso.privacyfriendlynetmonitor.R;
 public class ServiceHandler {
 
     private PassiveService mPassiveService;
-
+    private VpnCaptureService mActiveService;
     private boolean mIsBound;
 
     //Get information of running services
@@ -99,10 +100,40 @@ public class ServiceHandler {
         }
     };
 
-    //start the service manually
+    private ServiceConnection mActiveServiceConnection = new ServiceConnection() {
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            // This is called when the connection with the service has been
+            // established, giving us the service object we can use to
+            // interact with the service.  Because we have bound to a explicit
+            // service that we know is running in our own process, we can
+            // cast its IBinder to a concrete class and directly access it.
+            mActiveService = ((VpnCaptureService.AnalyzerBinder) service).getService();
+            Toast.makeText(RunStore.getContext(), R.string.active_service_start,
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        public void onServiceDisconnected(ComponentName className) {
+            // This is called when the connection with the service has been
+            // unexpectedly disconnected -- that is, its process crashed.
+            // Because it is running in our same process, we should never
+            // see this happen.
+            mActiveService = null;
+            Toast.makeText(RunStore.getContext(), R.string.active_service_stop,
+                    Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    //start the passive service manually
     public void startPassiveService() {
         // Establish a connection with the service.
         Intent intent = new Intent(RunStore.getAppContext(), PassiveService.class);
+        RunStore.getContext().startService(intent);
+    }
+
+    //start the active service manually
+    public void startActiveService() {
+        // Establish a connection with the service.
+        Intent intent = new Intent(RunStore.getAppContext(), VpnCaptureService.class);
         RunStore.getContext().startService(intent);
     }
 
@@ -113,6 +144,13 @@ public class ServiceHandler {
         }
     }
 
+    //stop the passive service
+    public void stopActiveService() {
+        if (isServiceRunning(PassiveService.class)) {
+            RunStore.getContext().stopService(new Intent(RunStore.getAppContext(), VpnCaptureService.class));
+        }
+    }
+
     //Bind the passive service to the assigned context
     public void bindPassiveService(Context context) {
         Intent intent = new Intent(RunStore.getAppContext(), PassiveService.class);
@@ -120,10 +158,25 @@ public class ServiceHandler {
         mIsBound = true;
     }
 
+    //Bind the active service to the assigned context
+    public void bindActiveService(Context context) {
+        Intent intent = new Intent(RunStore.getAppContext(), VpnCaptureService.class);
+        context.bindService(intent, mActiveServiceConnection, Context.BIND_AUTO_CREATE);
+        mIsBound = true;
+    }
+
     //Unbind the passive service to app  context
     public void unbindPassiveService(Context context) {
         if (mIsBound) {
             context.unbindService(mPassiveServiceConnection);
+            mIsBound = false;
+        }
+    }
+
+    //Unbind the passive service to app  context
+    public void unbindActiveService(Context context) {
+        if (mIsBound) {
+            context.unbindService(mActiveServiceConnection);
             mIsBound = false;
         }
     }

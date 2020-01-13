@@ -57,6 +57,7 @@ public interface Const {
 
     //App constants
     boolean IS_DEBUG = false;
+    boolean IS_ActiveCapture = true;
     String LOG_TAG = "NetMonitor";
     String FILE_IF_LIST = "iflist";
 

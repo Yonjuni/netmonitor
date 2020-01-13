@@ -12,6 +12,8 @@
     <!-- SERVICE HANDLER -->
     <string name="passive_service_start">Net Monitor service has been started in passive mode.</string>
     <string name="passive_service_stop">Net Monitor service has been stopped. Was in passive mode.</string>
+    <string name="active_service_start">Net Monitor service has been started in active mode [VPN Capture].</string>
+    <string name="active_service_stop">Net Monitor service has been stopped. Was in active mode [VPN Capture].</string>
 
     <!-- REPORT -->
     <string name="unknown_app">Unknown App</string>

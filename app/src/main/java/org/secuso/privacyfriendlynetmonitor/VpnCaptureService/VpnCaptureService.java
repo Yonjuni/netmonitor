@@ -40,6 +40,7 @@ package org.secuso.privacyfriendlynetmonitor.VpnCaptureService;
 import android.content.Context;
 import android.content.Intent;
 import android.net.VpnService;
+import android.os.Binder;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
@@ -101,6 +102,11 @@ public class VpnCaptureService extends VpnService {
     private Decoder mDecoder;
     private FileInputStream mIn;
     private FileOutputStream mOut;
+
+    //Class for Binder
+    public class AnalyzerBinder extends Binder {
+        public VpnCaptureService getService() { return VpnCaptureService.this; }
+    }
 
     //Kickstart!
     public static void start(Context context) {
