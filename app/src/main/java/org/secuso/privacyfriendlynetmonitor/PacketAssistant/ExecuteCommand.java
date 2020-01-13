@@ -39,6 +39,8 @@ package org.secuso.privacyfriendlynetmonitor.PacketAssistant;
 
 import android.util.Log;
 
+import org.secuso.privacyfriendlynetmonitor.Assistant.Const;
+
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.DataOutputStream;
