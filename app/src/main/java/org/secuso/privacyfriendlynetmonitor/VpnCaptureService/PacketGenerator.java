@@ -45,9 +45,9 @@ import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import de.felixschiller.tlsmetric.Assistant.Const;
-import de.felixschiller.tlsmetric.VpnCaptureService.Flow.SocketData;
-import de.felixschiller.tlsmetric.VpnCaptureService.Flow.TcpFlow;
+import org.secuso.privacyfriendlynetmonitor.Assistant.Const;
+import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.Flow.SocketData;
+import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.Flow.TcpFlow;
 
 /**
  * Generates IP and TCP/UDP packets from payload (or none) and a given flow element.

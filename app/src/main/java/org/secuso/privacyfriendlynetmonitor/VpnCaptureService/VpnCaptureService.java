@@ -68,11 +68,11 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
-import de.felixschiller.tlsmetric.Assistant.Const;
-import de.felixschiller.tlsmetric.R;
-import de.felixschiller.tlsmetric.VpnCaptureService.Flow.SocketData;
-import de.felixschiller.tlsmetric.VpnCaptureService.Flow.TcpFlow;
-import de.felixschiller.tlsmetric.VpnCaptureService.Flow.UdpFlow;
+import org.secuso.privacyfriendlynetmonitor.Assistant.Const;
+import org.secuso.privacyfriendlynetmonitor.R;
+import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.Flow.SocketData;
+import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.Flow.TcpFlow;
+import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.Flow.UdpFlow;
 
 /**
  * A VPN packet capturing service. All Packets get repacket and sent directly to the target hosts

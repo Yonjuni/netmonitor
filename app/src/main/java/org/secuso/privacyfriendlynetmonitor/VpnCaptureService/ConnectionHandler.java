@@ -49,10 +49,10 @@ import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.Set;
 
-import de.felixschiller.tlsmetric.Assistant.Const;
-import de.felixschiller.tlsmetric.VpnCaptureService.Flow.SocketData;
-import de.felixschiller.tlsmetric.VpnCaptureService.Flow.TcpFlow;
-import de.felixschiller.tlsmetric.VpnCaptureService.Flow.UdpFlow;
+import org.secuso.privacyfriendlynetmonitor.Assistant.Const;
+import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.Flow.SocketData;
+import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.Flow.TcpFlow;
+import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.Flow.UdpFlow;
 
 /**
  * Handler for socket and connection management.
