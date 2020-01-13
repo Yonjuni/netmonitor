@@ -46,7 +46,7 @@
     https://bitbucket.org/schillef/tlsmetric/overview.
 
  */
-package de.schiller.tlsmetric.Activities;
+package de.felixschiller.tlsmetric.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -66,7 +66,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import de.schiller.tlsmetric.R;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 /**
  * Base activity for other activities

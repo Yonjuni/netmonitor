@@ -42,7 +42,7 @@
      TLSMetric is based on TLSMetric by Felix Tsala Schiller
     https://bitbucket.org/schillef/tlsmetric/overview.
  */
-package de.schiller.tlsmetric.ConnectionAnalysis;
+package de.felixschiller.tlsmetric.ConnectionAnalysis;
 
 import android.graphics.drawable.Drawable;
 import android.util.Log;
@@ -53,9 +53,9 @@ import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 
-import de.schiller.tlsmetric.Assistant.Const;
-import de.schiller.tlsmetric.Assistant.TLType;
-import de.schiller.tlsmetric.Assistant.ToolBox;
+import de.felixschiller.tlsmetric.Assistant.Const;
+import de.felixschiller.tlsmetric.Assistant.TLType;
+import de.felixschiller.tlsmetric.Assistant.ToolBox;
 
 import static java.lang.Math.abs;
 

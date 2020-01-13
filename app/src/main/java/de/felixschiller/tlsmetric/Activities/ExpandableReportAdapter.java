@@ -46,7 +46,7 @@
     https://bitbucket.org/schillef/tlsmetric/overview.
 
  */
-package de.schiller.tlsmetric.Activities;
+package de.felixschiller.tlsmetric.Activities;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -60,11 +60,11 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 
-import de.schiller.tlsmetric.Assistant.Const;
-import de.schiller.tlsmetric.Assistant.KnownPorts;
-import de.schiller.tlsmetric.ConnectionAnalysis.Collector;
-import de.schiller.tlsmetric.ConnectionAnalysis.Report;
-import de.schiller.tlsmetric.R;
+import de.felixschiller.tlsmetric.Assistant.Const;
+import de.felixschiller.tlsmetric.Assistant.KnownPorts;
+import de.felixschiller.tlsmetric.ConnectionAnalysis.Collector;
+import de.felixschiller.tlsmetric.ConnectionAnalysis.Report;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 /**
  * Adapter displaying information in the ReportActivity

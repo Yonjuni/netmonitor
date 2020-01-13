@@ -47,7 +47,7 @@
 
  */
 
-package de.schiller.tlsmetric.Activities;
+package de.felixschiller.tlsmetric.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -65,11 +65,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.schiller.tlsmetric.Assistant.Const;
-import de.schiller.tlsmetric.Assistant.RunStore;
-import de.schiller.tlsmetric.ConnectionAnalysis.Collector;
-import de.schiller.tlsmetric.ConnectionAnalysis.Report;
-import de.schiller.tlsmetric.R;
+import de.felixschiller.tlsmetric.Assistant.Const;
+import de.felixschiller.tlsmetric.Assistant.RunStore;
+import de.felixschiller.tlsmetric.ConnectionAnalysis.Collector;
+import de.felixschiller.tlsmetric.ConnectionAnalysis.Report;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 /**
  * Report Detail Panel. List all reports of a connection, invoked by Report Panel (ReportActivity)

@@ -46,7 +46,7 @@
     https://bitbucket.org/schillef/tlsmetric/overview.
 
  */
-package de.schiller.tlsmetric.Activities;
+package de.felixschiller.tlsmetric.Activities;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -61,9 +61,9 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 
-import de.schiller.tlsmetric.Assistant.Const;
-import de.schiller.tlsmetric.Assistant.RunStore;
-import de.schiller.tlsmetric.R;
+import de.felixschiller.tlsmetric.Assistant.Const;
+import de.felixschiller.tlsmetric.Assistant.RunStore;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 /**
  * Activity providing app settings

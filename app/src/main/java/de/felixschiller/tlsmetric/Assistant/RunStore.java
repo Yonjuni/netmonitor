@@ -42,13 +42,13 @@
      TLSMetric is based on TLSMetric by Felix Tsala Schiller
     https://bitbucket.org/schillef/tlsmetric/overview.
  */
-package de.schiller.tlsmetric.Assistant;
+package de.felixschiller.tlsmetric.Assistant;
 
 
 import android.app.Activity;
 import android.content.Context;
 
-import de.schiller.tlsmetric.ConnectionAnalysis.ServiceHandler;
+import de.felixschiller.tlsmetric.ConnectionAnalysis.ServiceHandler;
 
 /**
  * Singleton-Like implementation which holds App-Context information and ServiceHandlers

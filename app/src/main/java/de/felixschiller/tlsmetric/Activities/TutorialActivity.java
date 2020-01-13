@@ -46,7 +46,7 @@
     https://bitbucket.org/schillef/tlsmetric/overview.
 
  */
-package de.schiller.tlsmetric.Activities;
+package de.felixschiller.tlsmetric.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -66,8 +66,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import de.schiller.tlsmetric.Assistant.PrefManager;
-import de.schiller.tlsmetric.R;
+import de.felixschiller.tlsmetric.Assistant.PrefManager;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 /**
  * Welcome tutorial for basic understanding of app features

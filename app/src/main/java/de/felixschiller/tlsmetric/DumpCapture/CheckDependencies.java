@@ -35,13 +35,13 @@
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 
-package de.schiller.tlsmetric.DumpCapture;
+package de.felixschiller.tlsmetric.DumpCapture;
 
 import android.widget.Toast;
 
 
 
-import de.schiller.tlsmetric.Assistant.RunStore;
+import de.felixschiller.tlsmetric.Assistant.RunStore;
 
 /**
  * Checks for su and busybox dependecies. These apps are needed for root access based packet dumping.

@@ -42,7 +42,7 @@
      TLSMetric is based on TLSMetric by Felix Tsala Schiller
     https://bitbucket.org/schillef/tlsmetric/overview.
  */
-package de.schiller.tlsmetric.ConnectionAnalysis;
+package de.felixschiller.tlsmetric.ConnectionAnalysis;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -52,7 +52,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.widget.Toast;
 
-import de.schiller.tlsmetric.Assistant.RunStore;
+import de.felixschiller.tlsmetric.Assistant.RunStore;
 
 /**
  * This class handles commands and access to the services of the app

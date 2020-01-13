@@ -35,7 +35,7 @@
     Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.
  */
 
-package de.schiller.tlsmetric.Assistant;
+package de.felixschiller.tlsmetric.Assistant;
 
 import android.util.Log;
 

@@ -47,7 +47,7 @@
 
  */
 
-package de.schiller.tlsmetric.Activities;
+package de.felixschiller.tlsmetric.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -56,9 +56,9 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
-import de.schiller.tlsmetric.Assistant.RunStore;
-import de.schiller.tlsmetric.BuildConfig;
-import de.schiller.tlsmetric.R;
+import de.felixschiller.tlsmetric.Assistant.RunStore;
+import org.secuso.privacyfriendlynetmonitor.BuildConfig;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 /**
  * Activity displaying information about  TLSMetric App

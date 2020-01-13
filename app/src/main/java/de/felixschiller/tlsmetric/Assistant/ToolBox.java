@@ -43,7 +43,7 @@
     https://bitbucket.org/schillef/tlsmetric/overview.
  */
 
-package de.schiller.tlsmetric.Assistant;
+package de.felixschiller.tlsmetric.Assistant;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -58,7 +58,7 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.Enumeration;
 
-import de.schiller.tlsmetric.ConnectionAnalysis.PassiveService;
+import de.felixschiller.tlsmetric.ConnectionAnalysis.PassiveService;
 
 /**
  * Class for all the litte helpers, used by more than one layer

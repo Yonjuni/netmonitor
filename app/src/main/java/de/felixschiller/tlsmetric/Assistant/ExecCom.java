@@ -44,7 +44,7 @@
     https://bitbucket.org/schillef/tlsmetric/overview.
  */
 
-package de.schiller.tlsmetric.Assistant;
+package de.felixschiller.tlsmetric.Assistant;
 
 import android.util.Log;
 

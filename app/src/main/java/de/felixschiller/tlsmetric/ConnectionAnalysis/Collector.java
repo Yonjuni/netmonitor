@@ -42,7 +42,7 @@
      TLSMetric is based on TLSMetric by Felix Tsala Schiller
     https://bitbucket.org/schillef/tlsmetric/overview.
  */
-package de.schiller.tlsmetric.ConnectionAnalysis;
+package de.felixschiller.tlsmetric.ConnectionAnalysis;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -71,15 +71,15 @@ import java.util.Map;
 import java.util.Set;
 
 import de.bjoernr.ssllabs.ConsoleUtilities;
-import de.schiller.tlsmetric.Assistant.AsyncCertVal;
-import de.schiller.tlsmetric.Assistant.AsyncDNS;
-import de.schiller.tlsmetric.Assistant.Const;
-import de.schiller.tlsmetric.Assistant.KnownPorts;
-import de.schiller.tlsmetric.Assistant.RunStore;
-import de.schiller.tlsmetric.Assistant.TLType;
-import de.schiller.tlsmetric.Assistant.ToolBox;
-import de.schiller.tlsmetric.BuildConfig;
-import de.schiller.tlsmetric.R;
+import de.felixschiller.tlsmetric.Assistant.AsyncCertVal;
+import de.felixschiller.tlsmetric.Assistant.AsyncDNS;
+import de.felixschiller.tlsmetric.Assistant.Const;
+import de.felixschiller.tlsmetric.Assistant.KnownPorts;
+import de.felixschiller.tlsmetric.Assistant.RunStore;
+import de.felixschiller.tlsmetric.Assistant.TLType;
+import de.felixschiller.tlsmetric.Assistant.ToolBox;
+import de.felixschiller.tlsmetric.BuildConfig;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 /**
  * Collector class collects data from the services and processes it for usage with the UI.

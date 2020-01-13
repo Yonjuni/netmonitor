@@ -1,4 +1,4 @@
-package de.schiller.tlsmetric.Assistant;
+package de.felixschiller.tlsmetric.Assistant;
 
 /**
  * Enum indication transport layer protocol

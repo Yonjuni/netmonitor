@@ -46,7 +46,7 @@
     https://bitbucket.org/schillef/tlsmetric/overview.
 
  */
-package de.schiller.tlsmetric.Activities;
+package de.felixschiller.tlsmetric.Activities;
 
 
 import android.content.Intent;
@@ -67,12 +67,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import de.schiller.tlsmetric.Assistant.Const;
-import de.schiller.tlsmetric.Assistant.RunStore;
-import de.schiller.tlsmetric.ConnectionAnalysis.Collector;
-import de.schiller.tlsmetric.ConnectionAnalysis.PassiveService;
-import de.schiller.tlsmetric.ConnectionAnalysis.Report;
-import de.schiller.tlsmetric.R;
+import de.felixschiller.tlsmetric.Assistant.Const;
+import de.felixschiller.tlsmetric.Assistant.RunStore;
+import de.felixschiller.tlsmetric.ConnectionAnalysis.Collector;
+import de.felixschiller.tlsmetric.ConnectionAnalysis.PassiveService;
+import de.felixschiller.tlsmetric.ConnectionAnalysis.Report;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 
 /**

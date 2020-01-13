@@ -12,7 +12,7 @@
  along with  Password Generator. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schiller.tlsmetric.Assistant;
+package de.felixschiller.tlsmetric.Assistant;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -43,7 +43,7 @@
     https://bitbucket.org/schillef/tlsmetric/overview.
  */
 
-package de.schiller.tlsmetric.ConnectionAnalysis;
+package de.felixschiller.tlsmetric.ConnectionAnalysis;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -56,11 +56,11 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.schiller.tlsmetric.Assistant.Const;
-import de.schiller.tlsmetric.Assistant.ExecCom;
-import de.schiller.tlsmetric.Assistant.RunStore;
-import de.schiller.tlsmetric.Assistant.TLType;
-import de.schiller.tlsmetric.Assistant.ToolBox;
+import de.felixschiller.tlsmetric.Assistant.Const;
+import de.felixschiller.tlsmetric.Assistant.ExecCom;
+import de.felixschiller.tlsmetric.Assistant.RunStore;
+import de.felixschiller.tlsmetric.Assistant.TLType;
+import de.felixschiller.tlsmetric.Assistant.ToolBox;
 
 /**
  * Detects active connections on the device and identifies port-uid-pid realation. Corresponding

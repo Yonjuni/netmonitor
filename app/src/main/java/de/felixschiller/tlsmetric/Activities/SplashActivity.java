@@ -12,7 +12,7 @@
  along with  Password Generator. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.schiller.tlsmetric.Activities;
+package de.felixschiller.tlsmetric.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;

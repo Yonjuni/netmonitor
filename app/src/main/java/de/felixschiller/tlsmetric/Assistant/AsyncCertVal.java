@@ -42,7 +42,7 @@
      TLSMetric is based on TLSMetric by Felix Tsala Schiller
     https://bitbucket.org/schillef/tlsmetric/overview.
  */
-package de.schiller.tlsmetric.Assistant;
+package de.felixschiller.tlsmetric.Assistant;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -56,7 +56,7 @@ import java.util.Map;
 
 import de.bjoernr.ssllabs.Api;
 import de.bjoernr.ssllabs.ConsoleUtilities;
-import de.schiller.tlsmetric.ConnectionAnalysis.Collector;
+import de.felixschiller.tlsmetric.ConnectionAnalysis.Collector;
 
 /**
  * Class for performing asynchronous requests of JSON Objects via SSL-Labs API

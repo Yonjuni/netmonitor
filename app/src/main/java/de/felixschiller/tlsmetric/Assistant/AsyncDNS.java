@@ -42,11 +42,11 @@
      TLSMetric is based on TLSMetric by Felix Tsala Schiller
     https://bitbucket.org/schillef/tlsmetric/overview.
  */
-package de.schiller.tlsmetric.Assistant;
+package de.felixschiller.tlsmetric.Assistant;
 
 import android.os.AsyncTask;
 
-import de.schiller.tlsmetric.ConnectionAnalysis.Collector;
+import de.felixschiller.tlsmetric.ConnectionAnalysis.Collector;
 
 /**
  * Helper class, executes asynchronous DNS requests.

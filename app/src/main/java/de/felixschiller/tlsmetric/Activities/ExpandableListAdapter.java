@@ -46,7 +46,7 @@
     https://bitbucket.org/schillef/tlsmetric/overview.
 
  */
-package de.schiller.tlsmetric.Activities;
+package de.felixschiller.tlsmetric.Activities;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -59,7 +59,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 
-import de.schiller.tlsmetric.R;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 /**
  * Adapter displaying contents in the help activity

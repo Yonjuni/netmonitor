@@ -43,7 +43,7 @@
     https://bitbucket.org/schillef/tlsmetric/overview.
  */
 
-package de.schiller.tlsmetric.ConnectionAnalysis;
+package de.felixschiller.tlsmetric.ConnectionAnalysis;
 
 import android.annotation.TargetApi;
 import android.app.NotificationManager;
@@ -60,11 +60,11 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import de.schiller.tlsmetric.Activities.MainActivity;
-import de.schiller.tlsmetric.Assistant.Const;
-import de.schiller.tlsmetric.Assistant.KnownPorts;
-import de.schiller.tlsmetric.Assistant.RunStore;
-import de.schiller.tlsmetric.R;
+import de.felixschiller.tlsmetric.Activities.MainActivity;
+import de.felixschiller.tlsmetric.Assistant.Const;
+import de.felixschiller.tlsmetric.Assistant.KnownPorts;
+import de.felixschiller.tlsmetric.Assistant.RunStore;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 import static java.lang.Thread.sleep;
 
