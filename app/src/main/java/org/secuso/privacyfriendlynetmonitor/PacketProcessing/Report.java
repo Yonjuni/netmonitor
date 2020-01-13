@@ -41,7 +41,7 @@ package org.secuso.privacyfriendlynetmonitor.PacketProcessing;
 import java.net.InetAddress;
 import java.sql.Timestamp;
 
-import de.felixschiller.tlsmetric.PacketProcessing.Filter.Filter;
+import org.secuso.privacyfriendlynetmonitor.PacketProcessing.Filter.Filter;
 
 /**
  * Evidence report

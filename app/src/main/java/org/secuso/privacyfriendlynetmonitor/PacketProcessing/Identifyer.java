@@ -43,13 +43,13 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 
-import de.felixschiller.tlsmetric.Assistant.Const;
-import de.felixschiller.tlsmetric.Assistant.ContextSingleton;
-import de.felixschiller.tlsmetric.Assistant.ToolBox;
-import de.felixschiller.tlsmetric.PacketProcessing.Filter.Filter;
-import de.felixschiller.tlsmetric.PacketProcessing.Filter.Http;
-import de.felixschiller.tlsmetric.PacketProcessing.Filter.Tls;
-import de.felixschiller.tlsmetric.R;
+import org.secuso.privacyfriendlynetmonitor.Assistant.Const;
+import org.secuso.privacyfriendlynetmonitor.Assistant.ContextSingleton;
+import org.secuso.privacyfriendlynetmonitor.Assistant.ToolBox;
+import org.secuso.privacyfriendlynetmonitor.PacketProcessing.Filter.Filter;
+import org.secuso.privacyfriendlynetmonitor.PacketProcessing.Filter.Http;
+import org.secuso.privacyfriendlynetmonitor.PacketProcessing.Filter.Tls;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 
 /**
@@ -73,20 +73,16 @@ public class Identifyer {
 
         if (searchByteArray(ident, sHTTP) == 0) filter = new Http(Filter.Protocol.HTTP, 3, ContextSingleton.getContext().getResources().getString(R.string.ALERT_HTTP));
         else if (searchByteArray(ident, sSSL3) == 1 && fillSubProto(ident) != null)
-            filter = new Tls(Filter.Protocol.SSL3, 1,
-                    ContextSingleton.getContext().getResources().getString(R.string.ALERT_SSL_3),
+            filter = new Tls(Filter.Protocol.SSL3, 1,"ALERT_SSL_3",
                     fillSubProto(ident), 10);
         else if (searchByteArray(ident, sTLS10) == 1 && fillSubProto(ident) != null)
-            filter = new Tls(Filter.Protocol.TLS10, 0,
-                    ContextSingleton.getContext().getResources().getString(R.string.ALERT_TLS_10),
+            filter = new Tls(Filter.Protocol.TLS10, 0, "ALERT_TLS_10",
                     fillSubProto(ident), 10);
         else if (searchByteArray(ident, sTLS11) == 1 && fillSubProto(ident) != null)
-            filter = new Tls(Filter.Protocol.TLS11, 0,
-                    ContextSingleton.getContext().getResources().getString(R.string.ALERT_TLS_11),
+            filter = new Tls(Filter.Protocol.TLS11, 0, "ALERT_TLS_11",
                     fillSubProto(ident), 11);
         else if (searchByteArray(ident, sTLS12) == 1 && fillSubProto(ident) != null)
-            filter = new Tls(Filter.Protocol.TLS12, 0,
-                    ContextSingleton.getContext().getResources().getString(R.string.ALERT_TLS_12),
+            filter = new Tls(Filter.Protocol.TLS12, 0, "ALERT_TLS_12",
                     fillSubProto(ident), 12);
         return filter;
     }

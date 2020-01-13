@@ -58,13 +58,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import de.felixschiller.tlsmetric.Assistant.Const;
-import de.felixschiller.tlsmetric.Assistant.ContextSingleton;
-import de.felixschiller.tlsmetric.Assistant.ExecuteCommand;
-import de.felixschiller.tlsmetric.Assistant.ToolBox;
-import de.felixschiller.tlsmetric.PacketProcessing.Filter.Empty;
-import de.felixschiller.tlsmetric.PacketProcessing.Filter.Filter;
-import de.felixschiller.tlsmetric.R;
+import org.secuso.privacyfriendlynetmonitor.Assistant.Const;
+import org.secuso.privacyfriendlynetmonitor.Assistant.ContextSingleton;
+import org.secuso.privacyfriendlynetmonitor.Assistant.ExecuteCommand;
+import org.secuso.privacyfriendlynetmonitor.Assistant.ToolBox;
+import org.secuso.privacyfriendlynetmonitor.PacketProcessing.Filter.Empty;
+import org.secuso.privacyfriendlynetmonitor.PacketProcessing.Filter.Filter;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 /**
  * Class for generating connection information (Evidence Reports) from packets, which has been
@@ -449,7 +449,7 @@ public class Evidence {
     //No UID/PID match? Go dummy!
     private static PackageInformation generateDummy() {
         PackageInformation pi = new PackageInformation();
-        pi.icon = ContextSingleton.getContext().getResources().getDrawable(R.mipmap.unknown_app);
+//        pi.icon = ContextSingleton.getContext().getResources().getDrawable(R.mipmap.unknown_app);
         pi.packageName = "Unknown App";
         pi.pid = -1;
         pi.uid = -1;

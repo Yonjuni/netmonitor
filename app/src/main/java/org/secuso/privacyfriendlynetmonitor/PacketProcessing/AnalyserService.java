@@ -62,12 +62,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import de.felixschiller.tlsmetric.Activities.EvidenceActivity;
-import de.felixschiller.tlsmetric.Activities.MainActivity;
-import de.felixschiller.tlsmetric.Assistant.Const;
-import de.felixschiller.tlsmetric.Assistant.ContextSingleton;
-import de.felixschiller.tlsmetric.DumpHandler.DumpHandler;
-import de.felixschiller.tlsmetric.R;
+
+import org.secuso.privacyfriendlynetmonitor.Activities.MainActivity;
+import org.secuso.privacyfriendlynetmonitor.Assistant.Const;
+import org.secuso.privacyfriendlynetmonitor.Assistant.ContextSingleton;
+import org.secuso.privacyfriendlynetmonitor.R;
 
 
 /**
@@ -90,7 +89,7 @@ public class AnalyserService extends Service {
     private int mNotificationCount;
     NotificationCompat.Builder mBuilder =
             new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.mipmap.icon)
+                    //.setSmallIcon(R.mipmap.icon)
                     .setContentTitle("TLSMetric")
                     .setContentText("Packet analyzer service is running.");
 
@@ -122,9 +121,9 @@ public class AnalyserService extends Service {
     //Icons for Notification manager. Must be converted to bitmaps.
     private void loadNotificationBitmaps() {
         //mQuest = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_quest, mBitmapOptions);
-        mOk = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_ok);
-        mWarnOrange = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_warn_orange);
-        mWarnRed = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_warn_red);
+//        mOk = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_ok);
+//        mWarnOrange = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_warn_orange);
+//        mWarnRed = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_warn_red);
 
 
     }
@@ -174,7 +173,7 @@ public class AnalyserService extends Service {
     @Override
     public void onDestroy() {
         showNoNotification();
-        DumpHandler.deleteDumpFile();
+//        DumpHandler.deleteDumpFile();
         Toast.makeText(this, "TLSMetric service stopped", Toast.LENGTH_SHORT).show();
     }
 
@@ -251,7 +250,7 @@ public class AnalyserService extends Service {
 
     //BG notification. Standard Android version.
     private void showAppNotification(){
-        mBuilder.setSmallIcon(R.mipmap.icon);
+//        mBuilder.setSmallIcon(R.mipmap.icon);
         mBuilder.setLargeIcon(mOk);
             Intent resultIntent = new Intent(this, MainActivity.class);
 
@@ -280,24 +279,24 @@ public class AnalyserService extends Service {
     private void showWarningNotification(){
         //Set corresponding icon
         if(Evidence.getMaxSeverity() > 2){
-            mBuilder.setSmallIcon(R.mipmap.icon_warn_red);
+//            mBuilder.setSmallIcon(R.mipmap.icon_warn_red);
             mBuilder.setLargeIcon(mWarnRed);
         } else {
-            mBuilder.setSmallIcon(R.mipmap.icon_warn_orange);
+//            mBuilder.setSmallIcon(R.mipmap.icon_warn_orange);
             mBuilder.setLargeIcon(mWarnOrange);
         }
         mBuilder.setContentText(mNotificationCount + " new warnings encountered.");
 
         // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, EvidenceActivity.class);
+//        Intent resultIntent = new Intent(this, EvidenceActivity.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 
         // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(EvidenceActivity.class);
+//        stackBuilder.addParentStack(EvidenceActivity.class);
 
         // Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
+//        stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
