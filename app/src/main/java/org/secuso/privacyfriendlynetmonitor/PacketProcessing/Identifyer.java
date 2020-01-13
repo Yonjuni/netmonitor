@@ -71,7 +71,7 @@ public class Identifyer {
     public static Filter indent(byte[] ident) {
         Filter filter = null;
 
-        if (searchByteArray(ident, sHTTP) == 0) filter = new Http(Filter.Protocol.HTTP, 3, ContextSingleton.getContext().getResources().getString(R.string.ALERT_HTTP));
+        if (searchByteArray(ident, sHTTP) == 0) filter = new Http(Filter.Protocol.HTTP, 3, "ALERT_HTTP");
         else if (searchByteArray(ident, sSSL3) == 1 && fillSubProto(ident) != null)
             filter = new Tls(Filter.Protocol.SSL3, 1,"ALERT_SSL_3",
                     fillSubProto(ident), 10);
