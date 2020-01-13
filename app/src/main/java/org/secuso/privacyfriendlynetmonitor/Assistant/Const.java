@@ -87,4 +87,17 @@ public interface Const {
     String PREF_NAME = "PREF_NAME";
     String IS_HIGHLIGHTED = "IS_HIGHLIGHTED";
 
+    //VPN Core Settings
+    int CHANNEL_TIMEOUT_UDP = 10000;
+    int CHANNEL_TIMEOUT_TCP = 3800;
+
+    //File info for AnalyzerService
+    String FILE_TCPDUMP = "tcpdump";
+    String FILE_DUMP = "dump.pcap";
+    String FILE_FILTER = "filter.ini";
+    String PARAMS = "-w";
+    Object FILE_RESOLVE_PID = "resolve";
+    int ANNOUNCEMENT_TIMEOUT = 1;
+
+
 }
