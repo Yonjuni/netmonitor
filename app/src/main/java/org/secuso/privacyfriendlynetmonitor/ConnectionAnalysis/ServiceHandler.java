@@ -49,6 +49,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.VpnService;
 import android.os.IBinder;
 import android.widget.Toast;
 
@@ -125,14 +126,13 @@ public class ServiceHandler {
 
     //start the passive service manually
     public void startPassiveService() {
-        // Establish a connection with the service.
         Intent intent = new Intent(RunStore.getAppContext(), PassiveService.class);
         RunStore.getContext().startService(intent);
     }
 
     //start the active service manually
     public void startActiveService() {
-        // Establish a connection with the service.
+        VpnService.prepare(RunStore.getContext());
         Intent intent = new Intent(RunStore.getAppContext(), VpnCaptureService.class);
         RunStore.getContext().startService(intent);
     }

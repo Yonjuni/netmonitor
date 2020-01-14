@@ -52,6 +52,7 @@ package org.secuso.privacyfriendlynetmonitor.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.net.VpnService;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -150,6 +151,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         //active service (VPNCaptureService)
         if (Const.IS_ActiveCapture) {
             if (!RunStore.getServiceHandler().isServiceRunning(VpnCaptureService.class)) {
+
                 if (Const.IS_DEBUG)
                     Log.d(Const.LOG_TAG, getResources().getString(R.string.active_service_start));
                 RunStore.getServiceHandler().startActiveService();

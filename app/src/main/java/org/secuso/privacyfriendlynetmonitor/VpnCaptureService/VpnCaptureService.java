@@ -37,10 +37,15 @@
 
 package org.secuso.privacyfriendlynetmonitor.VpnCaptureService;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.VpnService;
 import android.os.Binder;
+import android.os.Handler;
+import android.os.Message;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
@@ -80,106 +85,48 @@ import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.Flow.UdpFlow;
  * by datagram and socket channels. Supports UDP and TCP protocols.
  *
 */
-public class VpnCaptureService extends VpnService {
+public class VpnCaptureService extends VpnService implements Handler.Callback{
+    VpnService.Builder builder = new VpnService.Builder();
 
+    private Handler mHandler;
     // Keys for all channels are the source ports (client ports) of the outgoing connection.
     public static Selector mSelector;
     public static Queue<QueuePacket> mSendQueue = new LinkedList<>();
-
     //channel List to combat racing conditions
     public static HashSet<Integer> mChannels = new HashSet<>();
     public static QueuePacketInputStream mClone;
 
-    //Creator for VPN interface
-    Builder builder = new Builder();
-
     //Thread
     private Thread mThread;
     private ParcelFileDescriptor mInterface;
-
     // Packet stream decoder JnetStream:
     private QueuePacketInputStream mPin;
     private Decoder mDecoder;
     private FileInputStream mIn;
     private FileOutputStream mOut;
 
-    //Class for Binder
-    public class AnalyzerBinder extends Binder {
-        public VpnCaptureService getService() { return VpnCaptureService.this; }
-    }
-
-    //Kickstart!
-    public static void start(Context context) {
-        Intent intent = new Intent(context, VpnCaptureService.class);
-        context.startService(intent);
-    }
-
-    //Sends the packet out, if there's paylaod
-    public static boolean sendPacket(byte[] b, Packet pkt, SelectionKey key) throws IOException {
-        SocketData data = (SocketData) key.attachment();
-        data.offset = ConnectionHandler.getHeaderOffset(pkt);
-        int payload = b.length - data.offset;
-        if (payload > 0) {
-            ByteBuffer bb = ByteBuffer.allocate(payload);
-            bb.put(b, data.offset, payload);
-            bb.position(0);
-
-            //Send TCP
-            if (data.getTransport() == SocketData.Transport.TCP) {
-                SocketChannel sChan = (SocketChannel) key.channel();
-                if (!sChan.isConnected()) {
-                    if (Const.IS_DEBUG)
-                        Log.d(Const.LOG_TAG, "Channel not yet connected, add packet to send queue");
-                    sChan.finishConnect();
-                    mSendQueue.add(new QueuePacket(key, b, pkt));
-                } else {
-                    try {
-                        int sent = sChan.write(bb);
-                        if (Const.IS_DEBUG)
-                            Log.d(Const.LOG_TAG, "Channel ID: " + data.getSrcPort() + ", sent " + sent + " of " + payload + " bytes.");
-                        PacketGenerator.handleFlowAtSend((TcpFlow) data, pkt.getHeader("TCP"), payload);
-                        return true;
-                    } catch (SocketException e) {
-                        Log.e(Const.LOG_TAG, "SocketError - Reset connection ID:" + data.getSrcPort());
-                        PacketGenerator.forgeReset((TcpFlow) data);
-                        return false;
-                    }
-                }
-                //Send UDP
-            } else if (data.getTransport() == SocketData.Transport.UDP) {
-                DatagramChannel dChan = (DatagramChannel) key.channel();
-                if (dChan.isConnected()) {
-                    int sent = dChan.write(bb);
-                    if (Const.IS_DEBUG)
-                        Log.d(Const.LOG_TAG, "Channel ID: " + data.getSrcPort() + ", sent " + sent + " of " + payload + " bytes.");
-                    return true;
-                } else {
-                    Log.d(Const.LOG_TAG, "Could not write to channel ID: " + data.getSrcPort() + ", adding packet to queue");
-                    return false;
-                }
-            } else {
-                Log.d(Const.LOG_TAG, "Packet not sent. Payload: " + payload);
-                return false;
-            }
-        } else {
-            Log.d(Const.LOG_TAG, "Packet not sent. No Payload.");
-            return true;
-        }
-        return false;
+    @Override
+    public void onCreate() {
+        // The handler is only used to show messages.
+        if (mHandler == null) { mHandler = new Handler(this); }
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Stop the previous session by interrupting the thread.
-        if (mThread != null) {
-            mThread.interrupt();
-        }
-
-
+        if (mThread != null) { mThread.interrupt(); }
+        //Become Foreground Service
+        updateForegroundNotification(R.string.connecting);
+        mHandler.sendEmptyMessage(R.string.connecting);
         //Init selector and jnet package streams
         try {
+            //Build TUN interface
+            mInterface = builder
+                 //TODO: add Ipv6 and MTU
+                 .addAddress("10.0.0.0", 32)
+                 .addRoute("0.0.0.0", 0)
+                 .establish();
             mSelector = Selector.open();
-
             mPin = new QueuePacketInputStream();
             mClone = new QueuePacketInputStream();
             mDecoder = new Decoder(mPin);
@@ -192,13 +139,7 @@ public class VpnCaptureService extends VpnService {
             @Override
             public void run() {
                 try {
-                    //Configure the TUN interface.
-                    mInterface = builder.setSession("VPNBypassService")
-                            //TODO: add Ipv6 and MTU
-                            .addAddress("10.0.2.1", 32)
-                            .addRoute("0.0.0.0", 1)
-                            .addRoute("128.0.0.0", 1)
-                            .establish();
+
                     //Get FileStream
                     mIn = new FileInputStream(mInterface.getFileDescriptor());
                     mOut = new FileOutputStream(mInterface.getFileDescriptor());
@@ -267,6 +208,70 @@ public class VpnCaptureService extends VpnService {
             mThread.interrupt();
         }
         super.onDestroy();
+    }
+
+    @Override
+    public boolean handleMessage(Message message) {
+        return false;
+    }
+
+    //Class for Binder
+    public class AnalyzerBinder extends Binder {
+        public VpnCaptureService getService() { return VpnCaptureService.this; }
+    }
+
+    //Sends the packet out, if there's paylaod
+    public static boolean sendPacket(byte[] b, Packet pkt, SelectionKey key) throws IOException {
+        SocketData data = (SocketData) key.attachment();
+        data.offset = ConnectionHandler.getHeaderOffset(pkt);
+        int payload = b.length - data.offset;
+        if (payload > 0) {
+            ByteBuffer bb = ByteBuffer.allocate(payload);
+            bb.put(b, data.offset, payload);
+            bb.position(0);
+
+            //Send TCP
+            if (data.getTransport() == SocketData.Transport.TCP) {
+                SocketChannel sChan = (SocketChannel) key.channel();
+                if (!sChan.isConnected()) {
+                    if (Const.IS_DEBUG)
+                        Log.d(Const.LOG_TAG, "Channel not yet connected, add packet to send queue");
+                    sChan.finishConnect();
+                    mSendQueue.add(new QueuePacket(key, b, pkt));
+                } else {
+                    try {
+                        int sent = sChan.write(bb);
+                        if (Const.IS_DEBUG)
+                            Log.d(Const.LOG_TAG, "Channel ID: " + data.getSrcPort() + ", sent " + sent + " of " + payload + " bytes.");
+                        PacketGenerator.handleFlowAtSend((TcpFlow) data, pkt.getHeader("TCP"), payload);
+                        return true;
+                    } catch (SocketException e) {
+                        Log.e(Const.LOG_TAG, "SocketError - Reset connection ID:" + data.getSrcPort());
+                        PacketGenerator.forgeReset((TcpFlow) data);
+                        return false;
+                    }
+                }
+                //Send UDP
+            } else if (data.getTransport() == SocketData.Transport.UDP) {
+                DatagramChannel dChan = (DatagramChannel) key.channel();
+                if (dChan.isConnected()) {
+                    int sent = dChan.write(bb);
+                    if (Const.IS_DEBUG)
+                        Log.d(Const.LOG_TAG, "Channel ID: " + data.getSrcPort() + ", sent " + sent + " of " + payload + " bytes.");
+                    return true;
+                } else {
+                    Log.d(Const.LOG_TAG, "Could not write to channel ID: " + data.getSrcPort() + ", adding packet to queue");
+                    return false;
+                }
+            } else {
+                Log.d(Const.LOG_TAG, "Packet not sent. Payload: " + payload);
+                return false;
+            }
+        } else {
+            Log.d(Const.LOG_TAG, "Packet not sent. No Payload.");
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -611,6 +616,19 @@ public class VpnCaptureService extends VpnService {
                 }
             }
         }
+    }
+    private void updateForegroundNotification(final int message) {
+        final String NOTIFICATION_CHANNEL_ID = "VpnCapture";
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(
+                NOTIFICATION_SERVICE);
+        mNotificationManager.createNotificationChannel(new NotificationChannel(
+                NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_ID,
+                NotificationManager.IMPORTANCE_DEFAULT));
+        startForeground(1, new Notification.Builder(this, NOTIFICATION_CHANNEL_ID)
+                                   .setSmallIcon(R.drawable.ic_notification)
+                                   .setContentText(getString(message))
+                                   .setContentIntent(mConfigureIntent)
+                                   .build());
     }
 
 }
