@@ -78,6 +78,13 @@
             android:label="org.secuso.privacyfriendlynetmonitor.NetMonitorPassiveService"
             android:permission="android.permission.BIND_SERVICE" />
 
+        <service android:name=".VpnCaptureService.VpnCaptureService"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter>
+                <action android:name="android.net.VpnService"/>
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".Activities.HistoryActivity"
             android:label="@string/title_activity_history"
