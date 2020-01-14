@@ -57,6 +57,8 @@ import org.secuso.privacyfriendlynetmonitor.Assistant.RunStore;
 import org.secuso.privacyfriendlynetmonitor.R;
 import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.VpnCaptureService;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * This class handles commands and access to the services of the app
  * Currently Handles Services: Passive Service
@@ -132,9 +134,9 @@ public class ServiceHandler {
 
     //start the active service manually
     public void startActiveService() {
-        VpnService.prepare(RunStore.getContext());
         Intent intent = new Intent(RunStore.getAppContext(), VpnCaptureService.class);
         RunStore.getContext().startService(intent);
+
     }
 
     //stop the passive service

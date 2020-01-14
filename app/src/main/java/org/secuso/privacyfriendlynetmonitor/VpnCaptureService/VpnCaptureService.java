@@ -40,7 +40,7 @@ package org.secuso.privacyfriendlynetmonitor.VpnCaptureService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.VpnService;
 import android.os.Binder;
@@ -86,9 +86,11 @@ import org.secuso.privacyfriendlynetmonitor.VpnCaptureService.Flow.UdpFlow;
  *
 */
 public class VpnCaptureService extends VpnService implements Handler.Callback{
-    VpnService.Builder builder = new VpnService.Builder();
+
 
     private Handler mHandler;
+    private VpnService.Builder mBuilder;
+    private Intent mIntent;
     // Keys for all channels are the source ports (client ports) of the outgoing connection.
     public static Selector mSelector;
     public static Queue<QueuePacket> mSendQueue = new LinkedList<>();
@@ -98,7 +100,7 @@ public class VpnCaptureService extends VpnService implements Handler.Callback{
 
     //Thread
     private Thread mThread;
-    private ParcelFileDescriptor mInterface;
+    private ParcelFileDescriptor mPFD;
     // Packet stream decoder JnetStream:
     private QueuePacketInputStream mPin;
     private Decoder mDecoder;
@@ -113,24 +115,30 @@ public class VpnCaptureService extends VpnService implements Handler.Callback{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        mIntent = intent;
         // Stop the previous session by interrupting the thread.
         if (mThread != null) { mThread.interrupt(); }
         //Become Foreground Service
-        updateForegroundNotification(R.string.connecting);
-        mHandler.sendEmptyMessage(R.string.connecting);
+        updateForegroundNotification(R.string.active_service_start);
+        mHandler.sendEmptyMessage(R.string.active_service_start);
+        //TODO: Introduce Prefs
+        //final SharedPreferences prefs = getSharedPreferences(PLCAEHOLDER.Prefs.NAME, MODE_PRIVATE);
         //Init selector and jnet package streams
         try {
-            //Build TUN interface
-            mInterface = builder
-                 //TODO: add Ipv6 and MTU
-                 .addAddress("10.0.0.0", 32)
-                 .addRoute("0.0.0.0", 0)
-                 .establish();
+            //Build tunnel interface
+            mBuilder = new VpnService.Builder();
+            mBuilder
+            //TODO: experiment with MTU
+              .addAddress("10.0.2.1", 32)
+              .addRoute("0.0.0.0", 1)
+              .addRoute("128.0.0.0", 1);
+            //TODO: Create Allowed Apps Restrictions
+            mPFD = mBuilder.establish();
+
             mSelector = Selector.open();
             mPin = new QueuePacketInputStream();
             mClone = new QueuePacketInputStream();
-            mDecoder = new Decoder(mPin);
-        } catch (IOException | SyntaxError | StreamFormatException | EOPacketStream e) {
+        } catch (IOException | StreamFormatException | EOPacketStream e) {
             e.printStackTrace();
         }
 
@@ -141,12 +149,12 @@ public class VpnCaptureService extends VpnService implements Handler.Callback{
                 try {
 
                     //Get FileStream
-                    mIn = new FileInputStream(mInterface.getFileDescriptor());
-                    mOut = new FileOutputStream(mInterface.getFileDescriptor());
+                    mIn = new FileInputStream(mPFD.getFileDescriptor());
+                    mOut = new FileOutputStream(mPFD.getFileDescriptor());
 
                     while (!Thread.currentThread().isInterrupted() &&
-                            mInterface.getFileDescriptor() != null &&
-                            mInterface.getFileDescriptor().valid()) {
+                            mPFD.getFileDescriptor() != null &&
+                            mPFD.getFileDescriptor().valid()) {
                         try {
                             // Initialize byte array with 65535 bytes = maxsize of an IP Packet
                             byte[] b = new byte[65535];
@@ -184,9 +192,9 @@ public class VpnCaptureService extends VpnService implements Handler.Callback{
                     try {
                         ConnectionHandler.killAll();
                         mSelector.close();
-                        if (mInterface != null) {
-                            mInterface.close();
-                            mInterface = null;
+                        if (mPFD != null) {
+                            mPFD.close();
+                            mPFD = null;
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -627,8 +635,10 @@ public class VpnCaptureService extends VpnService implements Handler.Callback{
         startForeground(1, new Notification.Builder(this, NOTIFICATION_CHANNEL_ID)
                                    .setSmallIcon(R.drawable.ic_notification)
                                    .setContentText(getString(message))
-                                   .setContentIntent(mConfigureIntent)
-                                   .build());
+                                   .setContentIntent(PendingIntent.getActivity(this,
+                                           0, new Intent(this, VpnCaptureService.class),
+                                           PendingIntent.FLAG_UPDATE_CURRENT))
+                                    .build());
     }
 
 }

@@ -151,11 +151,13 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         //active service (VPNCaptureService)
         if (Const.IS_ActiveCapture) {
             if (!RunStore.getServiceHandler().isServiceRunning(VpnCaptureService.class)) {
-
+                Intent intent = VpnService.prepare(MainActivity.this);
+                if (intent != null) { startActivityForResult(intent, 0);
+                } else { onActivityResult(0, RESULT_OK, null); }
                 if (Const.IS_DEBUG)
                     Log.d(Const.LOG_TAG, getResources().getString(R.string.active_service_start));
                 RunStore.getServiceHandler().startActiveService();
-                Intent intent = new Intent(RunStore.getContext(), MainActivity.class);
+                intent = new Intent(RunStore.getContext(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             } else {
